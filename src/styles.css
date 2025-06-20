@@ -1,0 +1,274 @@
+/* src/styles.css */
+
+/* הגדרות בסיסיות */
+body {
+  direction: rtl;
+  font-family: 'Heebo', 'Rubik', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #2c5364 100%);
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* כותרת עליונה */
+header {
+  background: rgba(44, 83, 100, 0.95);
+  color: #fff;
+  padding: 1.5rem 2rem;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 18px 0 rgba(0,0,0,0.15);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  animation: fadeInDown 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* מבנה כללי */
+.app-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  background: rgba(255,255,255,0.96);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(44,83,100,0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  animation: fadeIn 1.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
+}
+
+/* סיידבר */
+aside {
+  background: linear-gradient(135deg, #11998e, #38ef7d 100%);
+  color: #fff;
+  width: 320px;
+  min-width: 260px;
+  padding: 2rem 1.5rem;
+  border-left: 5px solid #0f2027;
+  box-shadow: 0 2px 16px 0 rgba(44,83,100,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: slideInRight 1.1s;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px);}
+  to { opacity: 1; transform: translateX(0);}
+}
+
+aside h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* רשימת שיחות */
+aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+aside li {
+  background: rgba(255,255,255,0.11);
+  color: #fff;
+  margin-bottom: 0.5rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  transition: background 0.25s, box-shadow 0.25s, transform 0.18s;
+  box-shadow: 0 2px 8px 0 rgba(44,83,100,0.04);
+  position: relative;
+  overflow: hidden;
+}
+aside li:hover, aside li:focus {
+  background: #fff;
+  color: #11998e;
+  transform: scale(1.03);
+  box-shadow: 0 4px 18px 0 rgba(44,83,100,0.13);
+}
+
+/* חיפוש משתמש */
+form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  font-size: 1rem;
+  padding: 0.7em 1em;
+  border-radius: 10px;
+  border: 1px solid #b2bec3;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+  background: #f8fafd;
+  color: #222;
+}
+input:focus {
+  border: 1.5px solid #11998e;
+  box-shadow: 0 2px 8px 0 #38ef7d44;
+}
+
+/* כפתורים */
+button {
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #11998e 30%, #38ef7d 80%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.18s, box-shadow 0.28s;
+  box-shadow: 0 2px 8px 0 #11998e22;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+button:hover, button:focus {
+  background: linear-gradient(90deg, #38ef7d 10%, #11998e 90%);
+  color: #fff;
+  transform: scale(1.04);
+  box-shadow: 0 4px 18px 0 #11998e44;
+}
+
+/* חלון שיחה */
+main {
+  display: flex;
+  flex: 1;
+  min-height: 600px;
+}
+
+section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafd;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  border-radius: 0 0 24px 0;
+  position: relative;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  animation: fadeInUp 1.1s;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* בועות הודעה */
+.my-msg, .other-msg {
+  max-width: 60%;
+  padding: 0.8em 1.2em;
+  border-radius: 18px;
+  font-size: 1.1rem;
+  position: relative;
+  word-break: break-word;
+  animation: popIn 0.35s cubic-bezier(.7,-0.3,.5,1.7);
+  box-shadow: 0 2px 8px 0 #11998e22;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8);}
+  to { opacity: 1; transform: scale(1);}
+}
+
+.my-msg {
+  background: linear-gradient(90deg, #38ef7d 50%, #11998e 100%);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.other-msg {
+  background: #fff;
+  color: #11998e;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  border: 1.5px solid #38ef7d22;
+}
+
+/* שורת כתיבה */
+section form {
+  margin-top: 1.3rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+section input[type="text"] {
+  flex: 1;
+  background: #f8fafd;
+  border: 1.5px solid #11998e55;
+  border-radius: 10px;
+  font-size: 1.08rem;
+  padding: 0.7em 1em;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+section input[type="text"]:focus {
+  border: 1.5px solid #38ef7d;
+  box-shadow: 0 2px 8px 0 #38ef7d44;
+}
+
+/* הודעות שגיאה */
+form div, .error {
+  color: #e74c3c;
+  font-size: 0.98rem;
+  margin-top: 0.4em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  animation: shake 0.25s;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-8px); }
+  40%, 60% { transform: translateX(8px); }
+}
+
+/* רספונסיביות */
+@media (max-width: 900px) {
+  .app-container {
+    max-width: 98vw;
+    margin: 12px;
+  }
+  main {
+    flex-direction: column;
+  }
+  aside {
+    width: 100%;
+    min-width: 0;
+    border-left: none;
+    border-bottom: 5px solid #0f2027;
+    border-radius: 0 0 20px 20px;
+  }
+  section {
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  }
+}
