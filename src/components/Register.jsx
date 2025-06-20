@@ -18,8 +18,9 @@ export default function Register() {
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         email,
-        username
+       displayName: username
       });
+
     } catch (err) {
       setError("שגיאה בהרשמה: " + err.message);
     }
