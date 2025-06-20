@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -33,7 +32,9 @@ function App() {
       </header>
       <main style={{ display: "flex" }}>
         <ChatList user={user} onSelectChat={setSelectedChat} />
-        {selectedChat && <Chat chatId={selectedChat} user={user} />}
+        {selectedChat && (
+          <Chat currentUser={user} otherUserId={selectedChat} />
+        )}
       </main>
     </div>
   );
