@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function ChatList({ user, onSelectChat }) {
   const [users, setUsers] = useState([]);
-  const [chats, setChats] = useState([]);
   const [search, setSearch] = useState("");
 
-  // שליפת כל המשתמשים (חוץ מהמשתמש הנוכחי)
   useEffect(() => {
     async function fetchUsers() {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -22,16 +20,6 @@ export default function ChatList({ user, onSelectChat }) {
     fetchUsers();
   }, [user.uid]);
 
-  // שליפת כל הצ'אטים של המשתמש
-  useEffect(() => {
-    const q = query(collection(db, "chats"), where("participants", "array-contains", user.uid));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setChats(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    });
-    return () => unsubscribe();
-  }, [user.uid]);
-
-  // סינון משתמשים לפי חיפוש
   const filteredUsers = users.filter(
     (u) =>
       u.username && u.username.toLowerCase().includes(search.toLowerCase())
@@ -39,7 +27,7 @@ export default function ChatList({ user, onSelectChat }) {
 
   return (
     <aside className="w-64 border-r p-4">
-      <h4 className="mb-2 font-bold">חפש משתמש</h4>
+      <h4 className="mb-2 font-bold">משתמשים</h4>
       <input
         type="text"
         placeholder="חפש לפי שם משתמש"
@@ -48,6 +36,7 @@ export default function ChatList({ user, onSelectChat }) {
         className="mb-2 w-full border rounded px-2"
       />
       <ul>
+        {filteredUsers.length === 0 && <li>לא נמצאו משתמשים</li>}
         {filteredUsers.map(u => (
           <li
             key={u.uid}
@@ -55,15 +44,6 @@ export default function ChatList({ user, onSelectChat }) {
             onClick={() => onSelectChat(u.uid)}
           >
             {u.username}
-          </li>
-        ))}
-      </ul>
-      <hr className="my-4" />
-      <h4 className="mb-2 font-bold">השיחות שלי</h4>
-      <ul>
-        {chats.map(chat => (
-          <li key={chat.id} onClick={() => onSelectChat(chat.id)}>
-            {chat.participants.filter(uid => uid !== user.uid).join(", ")}
           </li>
         ))}
       </ul>
